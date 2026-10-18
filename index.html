@@ -106,7 +106,7 @@ main.grid.cards-view .inspector{display:none}
 .chip .cn{display:flex;flex-direction:column;min-width:0;flex:1}
 .chip .nm{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chip .bk{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chip .tag{font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:99px;background:var(--empty);color:var(--muted);flex:none}
+.chip .tag{font-size:11px;padding:2px 8px;border-radius:99px;background:var(--empty);color:var(--muted);flex:0 1 auto;min-width:0;max-width:40%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib{border:0;background:none;padding:3px;border-radius:4px;color:var(--muted);opacity:.7;flex:none}
 .ib:hover{opacity:1;background:var(--empty);color:var(--ink)}
 
@@ -369,8 +369,8 @@ function shell(){
 function chip(g,ctx){
   const tip=`${name(g)} · ${g.bucket}${g.assign?' · '+g.assign:''}${g.notes?' · '+g.notes:''}`;
   return `<div class="chip ${ui.picked===g.id?'picked':''}" draggable="true" data-gid="${g.id}" title="${esc(tip)}">
-  <span class="sw tint" style="--h:${hueFor(g)}"></span><span class="cn"><span class="nm">${esc(name(g))}</span><span class="bk">${esc(g.notes?g.bucket+' · '+g.notes:g.bucket)}</span></span>
-  ${g.assign?`<span class="tag">${esc(g.assign)}</span>`:''}
+  <span class="sw tint" style="--h:${hueFor(g)}"></span><span class="cn"><span class="nm">${esc(name(g))}</span><span class="bk">${esc([g.bucket,ctx==='seat'?g.assign:'',g.notes].filter(Boolean).join(' · '))}</span></span>
+  ${g.assign&&ctx!=='seat'?`<span class="tag">${esc(g.assign)}</span>`:''}
   <button class="ib" data-act="edit" data-gid="${g.id}" title="Edit guest" aria-label="Edit ${esc(name(g))}">${ICON.edit}</button>
   ${ctx==='seat'?`<button class="ib" data-act="unseat" data-gid="${g.id}" title="Move to unassigned" aria-label="Unassign ${esc(name(g))}">${ICON.x}</button>`:''}</div>`}
 function fillSelect(el,opts,all,val){el.innerHTML=`<option value="">${esc(all)}</option>`+opts.map(o=>`<option value="${esc(o.v)}">${esc(o.l)}</option>`).join('');el.value=opts.some(o=>o.v===val)?val:'';}
