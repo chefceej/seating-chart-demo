@@ -1,0 +1,651 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Figtree:wght@400;500;600;700&family=Pinyon+Script&display=swap"><style id="app-css">
+/* Layout: guest pool (left) · Willow Hall floor plan (center) · table inspector (right)
+   Palette: blush paper, rose accent, champagne gold flourishes, sage for "done". Dark mode is dusk plum. */
+:root{
+  --bg:#f7eff0;--panel:#fdf8f7;--raised:#ffffff;--ink:#3e3238;--muted:#7a6870;--faint:#a8969e;
+  --line:#ecdde1;--line-strong:#d7c0c7;--wall:#cfaeb0;
+  --accent:#a75a73;--accent-ink:#ffffff;--accent-soft:#f6e2e8;--gold:#bf9b5f;
+  --floor:#f1e8ec;--room:#fffcfa;--dance:#f5ebdf;--tablebg:#ffffff;--empty:#f5edef;
+  --dotS:52%;--dotL:85%;--edgeL:58%;
+  --danger:#ad4747;--ok:#5a876a;--warn:#ad7535;
+  --scrim:rgb(62 50 56/.35);
+  --shadow:0 1px 2px rgb(110 70 85/.08),0 10px 28px rgb(110 70 85/.12);
+  --font-display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --font-script:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#211a20;--panel:#2a2128;--raised:#332931;--ink:#f4e9ed;--muted:#bba8b1;--faint:#8b7881;
+  --line:#43363f;--line-strong:#5e4c57;--wall:#8f727b;
+  --accent:#e7a9bd;--accent-ink:#2a1a21;--accent-soft:#4b303b;--gold:#d9bc86;
+  --floor:#1d171c;--room:#2a2127;--dance:#33292b;--tablebg:#382d35;--empty:#3a2f37;
+  --dotS:34%;--dotL:34%;--edgeL:66%;
+  --danger:#e88a82;--ok:#94c6a4;--warn:#e3ad6c;
+  --scrim:rgb(0 0 0/.5);
+  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 28px rgb(0 0 0/.35);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#211a20;--panel:#2a2128;--raised:#332931;--ink:#f4e9ed;--muted:#bba8b1;--faint:#8b7881;
+  --line:#43363f;--line-strong:#5e4c57;--wall:#8f727b;
+  --accent:#e7a9bd;--accent-ink:#2a1a21;--accent-soft:#4b303b;--gold:#d9bc86;
+  --floor:#1d171c;--room:#2a2127;--dance:#33292b;--tablebg:#382d35;--empty:#3a2f37;
+  --dotS:34%;--dotL:34%;--edgeL:66%;
+  --danger:#e88a82;--ok:#94c6a4;--warn:#e3ad6c;
+  --scrim:rgb(0 0 0/.5);
+  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 28px rgb(0 0 0/.35);color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.35}
+#app{height:100%;display:flex;flex-direction:column}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--raised);border-radius:8px;padding:6px 12px;line-height:1.2}
+button:hover:not(:disabled){border-color:var(--line-strong)}
+button:disabled{opacity:.4;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;border-radius:99px;padding-inline:18px}
+button.ghost{background:transparent}
+button.danger{color:var(--danger)}
+button.link{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:2px;font-size:12px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select,textarea{background:var(--raised);border:1px solid var(--line);border-radius:8px;padding:6px 8px;min-width:0}
+.ic{width:16px;height:16px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tint{background:hsl(var(--h) var(--dotS) var(--dotL));border-color:hsl(var(--h) 45% var(--edgeL))!important}
+
+/* header */
+header.top{position:relative;display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold) 85%,transparent);opacity:.8;pointer-events:none}
+.brand h1{font-family:var(--font-script);font-weight:400;font-size:34px;margin:0;line-height:1.05;color:var(--ink)}
+.brand h1 .amp{color:var(--gold);padding:0 .08em}
+.brand .sub{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.meter{display:flex;align-items:center;gap:10px;flex:1;min-width:200px;max-width:420px}
+.meter .bar{flex:1;height:8px;border-radius:99px;background:var(--empty);overflow:hidden}
+.meter .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:99px;transition:width .25s}
+.meter .num{font-variant-numeric:tabular-nums;font-size:13px;white-space:nowrap}
+.meter .num b{font-size:16px}
+.actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.status{font-size:12px;color:var(--muted);padding:0 6px;display:flex;align-items:center;gap:6px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--faint)}
+.status.ok::before{background:var(--ok)}.status.warn::before{background:var(--warn)}.status.busy::before{background:var(--accent)}
+.iconbtn{padding:6px 8px}
+.menuwrap{position:relative}
+.menu{position:absolute;right:0;top:calc(100% + 4px);background:var(--raised);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);z-index:40;min-width:250px;padding:4px;display:flex;flex-direction:column}
+.menu button{border:0;background:none;text-align:left;padding:8px 10px;border-radius:5px}
+.menu button:hover{background:var(--empty)}
+.menu small{display:block;color:var(--muted);font-size:11.5px}
+
+/* grid */
+main.grid{flex:1;min-height:0;display:grid;grid-template-columns:320px minmax(0,1fr) 310px}
+main.grid.cards-view{grid-template-columns:320px minmax(0,1fr)}
+main.grid.cards-view .inspector{display:none}
+
+/* pool */
+.pool{border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.buckets{border-bottom:1px solid var(--line)}
+.buckets summary{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px 8px;cursor:pointer;list-style:none}
+.buckets summary::-webkit-details-marker{display:none}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.buckets summary .tot{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.buckets summary .tot b{color:var(--ink);font-size:15px}
+#bucketList{max-height:34vh;overflow:auto;padding:0 8px 10px;display:flex;flex-direction:column;gap:1px}
+.brow{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;gap:2px 8px;border:0;background:none;padding:5px 8px;border-radius:6px;text-align:left}
+.brow:hover{background:var(--empty)}
+.brow.on{background:var(--accent-soft)}
+.brow .sw{width:10px;height:10px;border-radius:3px;border:1px solid}
+.brow .bn{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow .bc{font-variant-numeric:tabular-nums;font-size:12px;color:var(--muted)}
+.brow .bc b{font-size:14px;color:var(--ink)}
+.brow.done .bc b{color:var(--ok)}
+.brow.done .bn{color:var(--muted)}
+.brow .bar{grid-column:2/4;height:3px;background:var(--empty);border-radius:9px;overflow:hidden}
+.brow .bar i{display:block;height:100%;background:hsl(var(--h) 45% var(--edgeL))}
+.filters{padding:10px 16px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--line)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.list{flex:1;min-height:120px;overflow:auto;padding:8px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.list.over{background:var(--accent-soft)}
+.ghead{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 2px 2px;display:flex;justify-content:space-between}
+.list .none{color:var(--muted);text-align:center;padding:24px 8px;font-size:13px}
+.list .none.slim{padding:10px 8px}
+.found{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;gap:8px;text-align:left;padding:7px 10px;border-radius:10px}
+.found .sw{width:10px;height:10px;border-radius:50%;border:1px solid}
+.found .nm{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.found .where{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan.searching .seat.filled:not(.hit){opacity:.28}
+.seat.hit{box-shadow:0 0 0 3px var(--raised),0 0 0 6px var(--gold);z-index:2}
+.poolfoot{padding:10px 12px;border-top:1px solid var(--line)}
+.wide{width:100%}
+
+/* chip */
+.chip{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 8px;border:1px solid var(--line);background:var(--raised);border-radius:10px;cursor:grab;flex:1;min-width:0;user-select:none}
+.chip:hover{border-color:var(--line-strong)}
+.chip.picked{outline:2px solid var(--accent);outline-offset:1px}
+.chip.ghosted{opacity:.4}
+.chip .sw{width:10px;height:10px;border-radius:50%;border:1px solid;flex:none}
+.chip .cn{display:flex;flex-direction:column;min-width:0;flex:1}
+.chip .nm{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip .bk{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip .tag{font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:99px;background:var(--empty);color:var(--muted);flex:none}
+.ib{border:0;background:none;padding:3px;border-radius:4px;color:var(--muted);opacity:.7;flex:none}
+.ib:hover{opacity:1;background:var(--empty);color:var(--ink)}
+
+/* stage */
+.stage{display:flex;flex-direction:column;min-height:0;min-width:0}
+.toolbar{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:8px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.seg{display:flex;border:1px solid var(--line);border-radius:7px;padding:2px;background:var(--bg)}
+.seg button{border:0;background:none;padding:5px 12px;border-radius:5px;color:var(--muted)}
+.seg button.on{background:var(--raised);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgb(0 0 0/.12)}
+.sel{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:50%;border:1px solid}
+.spacer{flex:1}
+.zoom{display:flex;align-items:center;gap:4px;font-size:12px;font-variant-numeric:tabular-nums}
+.zoom button{padding:3px 9px}
+.zoom span{min-width:40px;text-align:center;color:var(--muted)}
+button.on-toggle{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pickbar{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--accent-soft);font-size:13px;border-bottom:1px solid var(--line)}
+.pickbar button{margin-left:auto;padding:3px 10px}
+.planwrap{flex:1;overflow:auto;padding:16px;background:var(--floor);min-height:0}
+.sizer{position:relative;margin:0 auto}
+.plan{position:absolute;left:0;top:0;width:1430px;height:1060px;transform-origin:0 0}
+.room{position:absolute;left:40px;top:40px;width:1355px;height:875px;background:var(--room);border:6px double var(--wall);box-sizing:border-box;border-radius:2px}
+.door{position:absolute;background:var(--floor)}
+.lbl{position:absolute;font-size:15px;color:var(--muted);text-align:center;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.dance{position:absolute;left:591px;top:142px;width:314px;height:314px;border:1.5px solid var(--line-strong);background:repeating-conic-gradient(var(--dance) 0 25%,var(--room) 0 50%) 0 0/39.25px 39.25px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted)}
+.dance b{font-family:var(--font-script);font-weight:400;font-size:40px;color:var(--ink);opacity:.8}
+.dance span{font-size:14px;letter-spacing:.04em}
+.fixture{position:absolute;border:1.5px solid var(--line-strong);background:var(--raised);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--muted);border-radius:3px}
+.hint-cap{position:absolute;font-size:13px;color:var(--faint);text-align:center}
+.scale{position:absolute;left:1240px;top:965px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.scale i{display:block;width:150.6px;height:8px;border:2px solid var(--muted);border-top:0}
+.tbl{position:absolute}
+.core{position:absolute;background:var(--tablebg);border:2px solid var(--line-strong);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+.round .core{border-radius:50%;box-shadow:inset 0 0 0 4px var(--tablebg),inset 0 0 0 5px var(--line)}
+.head .core{border-radius:8px;box-shadow:inset 0 0 0 4px var(--tablebg),inset 0 0 0 5px var(--line)}
+.core .tn{font-family:var(--font-display);font-weight:600;font-size:28px;line-height:1}
+.head .core .tn{font-size:20px}
+.core .tc{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px}
+.tbl.full .core .tc{color:var(--ok);font-weight:700}
+.tbl.sel .core{border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.core.over{box-shadow:0 0 0 6px var(--accent)!important}
+.plan.layout .core{cursor:move;border-style:dashed;border-color:var(--accent)}
+.seat{position:absolute;width:31px;height:31px;margin:-15.5px 0 0 -15.5px;border-radius:50%;border:1.5px dashed var(--line-strong);background:var(--room);display:grid;place-items:center;font-size:12px;font-weight:700;letter-spacing:-.02em;box-sizing:border-box;cursor:pointer}
+.seat.filled{border-style:solid;cursor:grab}
+.seat.picked{box-shadow:0 0 0 4px var(--accent)}
+.seat.over{box-shadow:0 0 0 4px var(--accent);border-color:var(--accent)}
+.seat.ghosted{opacity:.35}
+body.dragging .seat:not(.filled){border-color:var(--accent)}
+
+/* inspector + cards */
+.inspector{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0;overflow:auto}
+.insp-empty{padding:24px 20px;color:var(--muted);font-size:13px}
+.insp-empty h3{font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--ink);margin:0 0 8px}
+.insp-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:14px 16px 8px}
+.tname{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+.tname span{font-family:var(--font-display);font-size:22px}
+.tname input{font-family:var(--font-display);font-size:22px;width:120px;padding:0 6px;border-color:transparent;background:transparent}
+.tname input:hover,.tname input:focus{border-color:var(--line);background:var(--raised)}
+.insp-meta{display:flex;justify-content:space-between;align-items:center;padding:0 16px 10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.insp-meta b{color:var(--ink)}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{padding:2px 9px}
+.mix{display:flex;flex-wrap:wrap;gap:4px;padding:0 16px 10px}
+.mix span{font-size:11px;padding:2px 7px;border-radius:99px;border:1px solid;color:var(--ink)}
+.srows{display:flex;flex-direction:column;padding:0 12px}
+.srow{display:flex;align-items:center;gap:8px;min-height:38px;border-bottom:1px dashed var(--line);padding:2px 0;cursor:pointer}
+.srow .sno{width:20px;text-align:right;font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums;flex:none}
+.srow .empty{color:var(--faint);font-size:12px;flex:1}
+.srow.over{background:var(--accent-soft);border-radius:6px}
+body.dragging .srow.open .empty{color:var(--accent)}
+.insp-foot{display:flex;gap:6px;padding:12px 16px 16px;flex-wrap:wrap}
+.cards{flex:1;overflow:auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;align-content:start;background:var(--floor)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding-bottom:6px;min-width:0}
+.card.head{grid-column:1/-1}
+.card.head .srows{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));column-gap:16px}
+.card-h{display:flex;justify-content:space-between;align-items:baseline;padding:10px 14px 4px}
+.card-t{border:0;background:none;padding:0;font-family:var(--font-display);font-size:19px}
+.card-t:hover{color:var(--accent)}
+.cnt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cnt.full{color:var(--ok);font-weight:700}
+
+/* toast + modal */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:8px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow);z-index:60;max-width:calc(100% - 32px);font-size:13px}
+.toast button{background:none;border:1px solid currentColor;color:inherit;padding:3px 10px}
+.modal-back{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:70}
+.modal{background:var(--panel);border-radius:16px;width:min(520px,100%);padding:20px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+.modal h2{font-family:var(--font-display);font-weight:600;font-size:24px;margin:0 0 14px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
+.form .full{grid-column:1/-1}
+.form .err{grid-column:1/-1;color:var(--danger);font-size:13px}
+.mfoot{display:flex;gap:8px;margin-top:18px;align-items:center}
+.mfoot .grow{flex:1}
+
+@media (max-width:1180px){
+  main.grid{grid-template-columns:300px minmax(0,1fr)}
+  .inspector{position:fixed;right:0;top:0;bottom:0;width:min(360px,100%);z-index:50;box-shadow:var(--shadow);transform:translateX(105%);transition:transform .2s}
+  .inspector.open{transform:none}
+}
+@media (max-width:760px){
+  html,body,#app{height:auto}
+  main.grid{display:flex;flex-direction:column}
+  .pool{border-right:0;border-bottom:1px solid var(--line)}
+  .list{max-height:50vh}
+  .planwrap{padding:8px;min-height:300px}
+  .actions{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style><div id="app"></div><script type="application/json" id="seating-data">{"rev":"demo0001","savedAt":"2026-10-18T00:00:00.000Z","nextId":1001,"tables":[{"id":"head","name":"Head table","kind":"head","seats":26,"x":755,"y":775},{"id":"t3","name":"3","kind":"round","seats":10,"x":154,"y":323},{"id":"t5","name":"4","kind":"round","seats":6,"x":254,"y":156},{"id":"t6","name":"5","kind":"round","seats":7,"x":455,"y":159},{"id":"t7","name":"1","kind":"round","seats":10,"x":235,"y":756},{"id":"t8","name":"2","kind":"round","seats":10,"x":257,"y":546},{"id":"t9","name":"8","kind":"round","seats":8,"x":445,"y":653},{"id":"t10","name":"16","kind":"round","seats":9,"x":1051,"y":623},{"id":"t11","name":"12","kind":"round","seats":8,"x":1044,"y":211},{"id":"t12","name":"9","kind":"round","seats":9,"x":643,"y":592},{"id":"t13","name":"10","kind":"round","seats":10,"x":850,"y":593},{"id":"t14","name":"17","kind":"round","seats":10,"x":1136,"y":797},{"id":"t15","name":"15","kind":"round","seats":10,"x":1214,"y":512},{"id":"t16","name":"18","kind":"round","seats":8,"x":1275,"y":673},{"id":"t17","name":"7","kind":"round","seats":10,"x":469,"y":458},{"id":"t18","name":"13","kind":"round","seats":10,"x":1259,"y":145},{"id":"t20","name":"14","kind":"round","seats":9,"x":1251,"y":322},{"id":"t21","name":"6","kind":"round","seats":10,"x":365,"y":321},{"id":"t22","name":"11","kind":"round","seats":8,"x":1015,"y":423}],"guests":[{"id":"g1","first":"Elliot","last":"Kentmore","bucket":"Shared Friends","assign":"Couple","notes":"","table":"t8","seat":3},{"id":"g2","first":"Gia","last":"Dunlowe","bucket":"Shared Friends","assign":"Couple","notes":"","table":"t8","seat":2},{"id":"g3","first":"Maren","last":"Glenlowe","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t22","seat":3},{"id":"g4","first":"Parker","last":"Glenlowe","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t22","seat":4},{"id":"g5","first":"Jasper","last":"Whithurst","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t13","seat":4},{"id":"g6","first":"Kenji","last":"Whithurst","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t13","seat":5},{"id":"g7","first":"Milo","last":"Belmore","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t9","seat":0},{"id":"g8","first":"Fern","last":"Belmore","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t9","seat":1},{"id":"g9","first":"Eve","last":"Stanwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":5},{"id":"g10","first":"Bea","last":"Stanwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":4},{"id":"g11","first":"Maren","last":"Stanwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":2},{"id":"g12","first":"Umi","last":"Stanwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":3},{"id":"g13","first":"Kira","last":"Elmstead","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g14","first":"Lena","last":"Garner","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t13","seat":9},{"id":"g15","first":"Yuki","last":"Lindqvist","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g16","first":"Abel","last":"Lindqvist","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t10","seat":6},{"id":"g17","first":"Perry","last":"Wickwick","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t10","seat":7},{"id":"g18","first":"Gale","last":"Wickwick","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t10","seat":8},{"id":"g19","first":"Marley","last":"Holloford","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g20","first":"Isla","last":"Radwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":7},{"id":"g21","first":"Cy","last":"Radwell","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":6},{"id":"g22","first":"Bettina","last":"Norwick","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t13","seat":0},{"id":"g23","first":"Niamh","last":"Norwick","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t13","seat":1},{"id":"g24","first":"Maren","last":"Cormore","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":"t16","seat":0},{"id":"g25","first":"Ilse","last":"Cormore","bucket":"Avery Aunt/Uncle","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g26","first":"Vera","last":"Mercer","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t21","seat":4},{"id":"g27","first":"Gideon","last":"Thornwell","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":3},{"id":"g28","first":"Zane","last":"Weywick","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t21","seat":5},{"id":"g30","first":"Yves","last":"Belhurst","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":6},{"id":"g31","first":"Marley","last":"Iverhurst","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":9},{"id":"g32","first":"Koa","last":"Iverhurst","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":0},{"id":"g33","first":"Hazel","last":"Corton","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":2},{"id":"g34","first":"Ione","last":"Marmore","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":4},{"id":"g35","first":"Rosa","last":"Devlin","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":5},{"id":"g36","first":"Dax","last":"Redford","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":7},{"id":"g37","first":"Wynn","last":"Elmford","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":1},{"id":"g38","first":"Orla","last":"Norlowe","bucket":"Avery College Friends","assign":"Couple","notes":"","table":"t18","seat":8},{"id":"g39","first":"Hugo","last":"Glenlowe","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":9},{"id":"g40","first":"Rhea","last":"Glenlowe","bucket":"Avery Cousins","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g41","first":"Hank","last":"Glenlowe","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":8},{"id":"g42","first":"Mina","last":"Elmwood","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":1},{"id":"g43","first":"Hugo","last":"Brookstead","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":3},{"id":"g44","first":"Dov","last":"Whithurst","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":2},{"id":"g45","first":"Bryn","last":"Ellison","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":7},{"id":"g46","first":"Sage","last":"Elmstead","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t22","seat":6},{"id":"g47","first":"Tess","last":"Elmstead","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t22","seat":5},{"id":"g48","first":"Blake","last":"Elmstead","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t22","seat":0},{"id":"g49","first":"Ulla","last":"Whitton","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t13","seat":6},{"id":"g50","first":"Ximena","last":"Millmore","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":4},{"id":"g51","first":"Vic","last":"Lindqvist","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t10","seat":5},{"id":"g52","first":"Bryn","last":"Langwell","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t13","seat":7},{"id":"g53","first":"Dashiell","last":"Iverby","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t13","seat":8},{"id":"g54","first":"Noel","last":"Penhurst","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t22","seat":7},{"id":"g55","first":"Wren","last":"Norwick","bucket":"Avery Cousins","assign":"Couple","notes":"","table":"t17","seat":6},{"id":"g56","first":"Saoirse","last":"Norwick","bucket":"Avery Cousins","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g57","first":"Hazel","last":"Winslow","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":8},{"id":"g58","first":"Ilse","last":"Winslow","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":7},{"id":"g59","first":"Viggo","last":"Winslow","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":9},{"id":"g60","first":"Parker","last":"Winslow","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":0},{"id":"g61","first":"Marlow","last":"Hartstead","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t21","seat":2},{"id":"g62","first":"Rowan","last":"Penford","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":8},{"id":"g63","first":"Ines","last":"Dunwell","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":4},{"id":"g64","first":"Oakley","last":"Dunwell","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":5},{"id":"g65","first":"Soren","last":"Elmby","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":2},{"id":"g66","first":"Gideon","last":"Brookton","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":6},{"id":"g67","first":"Viggo","last":"Brookton","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":5},{"id":"g68","first":"Val","last":"Goodwin","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":3},{"id":"g69","first":"Bo","last":"Dunton","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":1},{"id":"g70","first":"Tobin","last":"Millwick","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":0},{"id":"g71","first":"Thea","last":"Wickmore","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":3},{"id":"g72","first":"Fitz","last":"Wickmore","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":4},{"id":"g73","first":"Vera","last":"Ferraro","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t21","seat":3},{"id":"g74","first":"Corin","last":"Ashfield","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":1},{"id":"g75","first":"Zora","last":"Iverstead","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":7},{"id":"g76","first":"Elliot","last":"Iverstead","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t20","seat":6},{"id":"g77","first":"Calla","last":"Okafor","bucket":"Avery Home Friends","assign":"Couple","notes":"","table":"t14","seat":2},{"id":"g78","first":"Coral","last":"Fairby","bucket":"Avery Immediate Family","assign":"Avery's parents","notes":"","table":"t13","seat":3},{"id":"g79","first":"Ximena","last":"Lindqvist","bucket":"Avery Immediate Family","assign":"Avery's parents","notes":"","table":"t10","seat":2},{"id":"g80","first":"Alma","last":"Lindqvist","bucket":"Avery Immediate Family","assign":"Avery's parents","notes":"","table":"t13","seat":2},{"id":"g81","first":"Gideon","last":"Lindqvist","bucket":"Avery Immediate Family","assign":"Avery's parents","notes":"","table":"t10","seat":3},{"id":"g82","first":"Cameron","last":"Dunwood","bucket":"Avery Other","assign":"Couple","notes":"","table":"t21","seat":0},{"id":"g83","first":"Florian","last":"Corlowe","bucket":"Avery Other","assign":"Couple","notes":"","table":"t21","seat":9},{"id":"g84","first":"Wren","last":"Corlowe","bucket":"Avery Other","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g85","first":"Hazel","last":"Ibarra","bucket":"Avery Other","assign":"Couple","notes":"","table":"t21","seat":1},{"id":"g86","first":"Bryn","last":"Thornwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":0},{"id":"g87","first":"Sloane","last":"Thornwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":1},{"id":"g88","first":"Bryn","last":"Dunmore","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":8},{"id":"g89","first":"Will","last":"Dunmore","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":9},{"id":"g90","first":"Eden","last":"Wickley","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t6","seat":1},{"id":"g91","first":"Eve","last":"Norfield","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":4},{"id":"g92","first":"Ugo","last":"Albright","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":6},{"id":"g93","first":"Faye","last":"Hollowood","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":6},{"id":"g94","first":"Dashiell","last":"Hollowood","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":7},{"id":"g95","first":"Viggo","last":"Marwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g96","first":"Ottilie","last":"Marwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t6","seat":4},{"id":"g97","first":"Niamh","last":"Marwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t6","seat":2},{"id":"g98","first":"Val","last":"Marwell","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t6","seat":6},{"id":"g99","first":"Ilse","last":"Stanfield","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t6","seat":3},{"id":"g100","first":"Keaton","last":"Hollohurst","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":3},{"id":"g101","first":"Yael","last":"Hollohurst","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":2},{"id":"g102","first":"Lucan","last":"Kentwood","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":7},{"id":"g103","first":"Shay","last":"Abbott","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":null,"seat":null},{"id":"g104","first":"Flor","last":"Abbott","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":3},{"id":"g105","first":"Fitz","last":"Gutierrez","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t10","seat":0},{"id":"g106","first":"Romy","last":"Gutierrez","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t10","seat":1},{"id":"g107","first":"Pia","last":"Hartwick","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":4},{"id":"g108","first":"Greer","last":"Hartwick","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t11","seat":5},{"id":"g109","first":"Liesl","last":"Thornwood","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":5},{"id":"g112","first":"Nash","last":"Stanley","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":0},{"id":"g113","first":"Leo","last":"Stanley","bucket":"Avery Parent Friends","assign":"Avery's parents","notes":"","table":"t15","seat":1},{"id":"g114","first":"Kenji","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t7","seat":2},{"id":"g115","first":"Ugo","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t7","seat":0},{"id":"g116","first":"Mina","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t9","seat":6},{"id":"g117","first":"Amos","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t7","seat":3},{"id":"g118","first":"Yves","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t9","seat":5},{"id":"g119","first":"Niamh","last":"Kentton","bucket":"Morgan Aunt/Uncle","assign":"Couple","notes":"","table":"t7","seat":1},{"id":"g120","first":"Yael","last":"Stanford","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t12","seat":0},{"id":"g121","first":"Gale","last":"Stanford","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t12","seat":8},{"id":"g122","first":"Fitz","last":"Radwood","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t12","seat":4},{"id":"g123","first":"Drew","last":"Millfield","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t3","seat":8},{"id":"g124","first":"Wilder","last":"Millfield","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t3","seat":9},{"id":"g125","first":"Jude","last":"Corwick","bucket":"Morgan Aunt/Uncle","assign":"Morgan's parents","notes":"","table":"t12","seat":5},{"id":"g126","first":"June","last":"Fairton","bucket":"Morgan Other","assign":"Couple","notes":"","table":"t21","seat":6},{"id":"g127","first":"Tamsin","last":"Fairton","bucket":"Morgan Other","assign":"Couple","notes":"","table":"t21","seat":7},{"id":"g128","first":"Knox","last":"Redlowe","bucket":"Morgan Other","assign":"Couple","notes":"","table":"t8","seat":4},{"id":"g129","first":"Yael","last":"Pacheco","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":"t8","seat":0},{"id":"g130","first":"Dashiell","last":"Kentlowe","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":"t8","seat":5},{"id":"g131","first":"Jory","last":"Vance","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":"t8","seat":8},{"id":"g132","first":"Vida","last":"Vance","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":"t8","seat":9},{"id":"g133","first":"Hazel","last":"Oakford","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g134","first":"Benno","last":"Redhurst","bucket":"Morgan College Friends","assign":"Couple","notes":"","table":"t8","seat":1},{"id":"g135","first":"Finn","last":"Belmore","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":6},{"id":"g136","first":"Bea","last":"Belmore","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":7},{"id":"g137","first":"Viggo","last":"Kentton","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":5},{"id":"g138","first":"Val","last":"Kentton","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":8},{"id":"g139","first":"Tess","last":"Brookfield","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":9},{"id":"g140","first":"Leo","last":"Ashford","bucket":"Morgan Cousins","assign":"Couple","notes":"","table":"t7","seat":4},{"id":"g141","first":"Zuri","last":"Haddad","bucket":"Morgan Home Friends","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g142","first":"Hester","last":"Haddad","bucket":"Morgan Home Friends","assign":"Couple","notes":"","table":"t3","seat":6},{"id":"g143","first":"Frankie","last":"Wickford","bucket":"Morgan Home Friends","assign":"Couple","notes":"","table":"t8","seat":7},{"id":"g144","first":"Eden","last":"Thorne","bucket":"Morgan Immediate Family","assign":"Morgan's parents","notes":"","table":"t12","seat":6},{"id":"g145","first":"Rosa","last":"Thorne","bucket":"Morgan Immediate Family","assign":"Morgan's parents","notes":"","table":"t12","seat":7},{"id":"g146","first":"Odile","last":"Kentton","bucket":"Morgan Immediate Family","assign":"Couple","notes":"","table":"t9","seat":7},{"id":"g147","first":"Sage","last":"Millfield","bucket":"Morgan Immediate Family","assign":"Morgan's parents","notes":"","table":"t12","seat":3},{"id":"g148","first":"Gale","last":"Thornton","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":1},{"id":"g149","first":"Zane","last":"Underwood","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":2},{"id":"g150","first":"Wilma","last":"Underwood","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":3},{"id":"g151","first":"Amos","last":"Norford","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":0},{"id":"g152","first":"Bettina","last":"Norford","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":1},{"id":"g153","first":"Keaton","last":"Dunby","bucket":"Morgan Parent Friends","assign":"Couple","notes":"","table":null,"seat":null},{"id":"g154","first":"Yuki","last":"Dunby","bucket":"Morgan Parent Friends","assign":"Couple","notes":"","table":"t9","seat":3},{"id":"g155","first":"Anouk","last":"Kentley","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":5},{"id":"g156","first":"Rhea","last":"Belstead","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":2},{"id":"g157","first":"Abel","last":"Belstead","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":3},{"id":"g158","first":"Saoirse","last":"Dunfield","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":4},{"id":"g159","first":"Hank","last":"Radley","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":5},{"id":"g160","first":"Florian","last":"Radley","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t3","seat":4},{"id":"g161","first":"Tess","last":"Upton","bucket":"Morgan Parent Friends","assign":"Couple","notes":"","table":"t9","seat":2},{"id":"g162","first":"Mina","last":"Yoon","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t5","seat":0},{"id":"g163","first":"Ada","last":"Dunhurst","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t12","seat":2},{"id":"g164","first":"Abel","last":"Dunhurst","bucket":"Morgan Parent Friends","assign":"Morgan's parents","notes":"","table":"t12","seat":1},{"id":"g165","first":"Amos","last":"Thornwell","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":16},{"id":"g166","first":"Soren","last":"Thornwell","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":15},{"id":"g167","first":"Ezra","last":"Dalton","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":10},{"id":"g168","first":"Perry","last":"Kentton","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":21},{"id":"g169","first":"Soren","last":"Holloton","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":1},{"id":"g170","first":"Tamsin","last":"Holloton","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":0},{"id":"g171","first":"Amos","last":"Banerjee","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":22},{"id":"g172","first":"June","last":"Norstead","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":3},{"id":"g173","first":"Eden","last":"Cordova","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":11},{"id":"g174","first":"Dashiell","last":"Langford","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":4},{"id":"g175","first":"Zeke","last":"Langford","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":5},{"id":"g176","first":"Cy","last":"Stanton","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":12},{"id":"g177","first":"Fitz","last":"Elmlowe","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":8},{"id":"g178","first":"Morgan","last":"Lindqvist","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":20},{"id":"g179","first":"Avery","last":"Lindqvist","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":19},{"id":"g180","first":"Logan","last":"Lindqvist","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":18},{"id":"g181","first":"Florian","last":"Lindqvist","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":17},{"id":"g182","first":"Rowan","last":"Weyby","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":25},{"id":"g183","first":"Bram","last":"Brookwood","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":23},{"id":"g184","first":"Gemma","last":"Penley","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":2},{"id":"g185","first":"Wilder","last":"Belfield","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":14},{"id":"g186","first":"Fitz","last":"Rios","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":24},{"id":"g187","first":"Nico","last":"Penwood","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":7},{"id":"g188","first":"Cameron","last":"Penwood","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":6},{"id":"g189","first":"Odile","last":"Iverstead","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":9},{"id":"g190","first":"Faye","last":"Norhurst","bucket":"Wedding Party & +1s","assign":"Couple","notes":"","table":"head","seat":13},{"id":"g1000","table":"t6","seat":0,"first":"Jory","last":"Wickley","bucket":"Avery Parent Friends","assign":"Couple","notes":""}]}</script><script id="app-js">
+(()=>{'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cmp=(a,b)=>String(a||'').localeCompare(String(b||''),undefined,{sensitivity:'base'});
+const HOSTED=!!(window.claude&&typeof window.claude.use==='function');
+const DRAFT_KEY='demo-seating-draft-v1',PREF_KEY='demo-seating-prefs-v1',PLAN_W=1430,PLAN_H=1060;
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+const embedded=JSON.parse($('#seating-data').textContent);
+let S=embedded,dirty=false,restored=false;
+const draft=store.get(DRAFT_KEY);
+if(draft&&draft.state&&draft.baseRev===embedded.rev&&(HOSTED?draft.dirty:true)){S=draft.state;dirty=!!draft.dirty;restored=HOSTED&&dirty}
+S=JSON.parse(JSON.stringify(S));
+const prefs=store.get(PREF_KEY)||{};
+const ui={view:prefs.view||'plan',colorBy:prefs.colorBy||'side',zoom:prefs.zoom||1,picked:null,sel:null,layout:false,confirm:null,readOnly:false,saving:false,
+  f:{q:'',bucket:'',side:'',assign:'',sort:'bucket'}};
+const savePrefs=()=>store.set(PREF_KEY,{view:ui.view,colorBy:ui.colorBy,zoom:ui.zoom});
+const ICON={
+  edit:'<svg class="ic" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>',
+  x:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  undo:'<svg class="ic" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></svg>',
+  redo:'<svg class="ic" viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 000 10h3"/></svg>'};
+
+/* ---------- derived helpers ---------- */
+const name=g=>`${g.first||''} ${g.last||''}`.trim()||'Unnamed guest';
+const initials=g=>(((g.first||'')[0]||'')+((g.last||'')[0]||'')).toUpperCase()||'?';
+const sideOf=b=>/^avery/i.test(b||'')?'Avery':/^morgan/i.test(b||'')?'Morgan':'Both';
+const SIDE_LABEL={Avery:"Avery's side",Morgan:"Morgan's side",Both:'Shared'};
+const tById=id=>S.tables.find(t=>t.id===id);
+const gById=id=>S.guests.find(g=>g.id===id);
+const tLabel=t=>t.kind==='head'?(t.name&&t.name!=='Head'?t.name:'Head table'):`Table ${t.name}`;
+const tOrder=(a,b)=>(a.kind==='head'?-1:0)-(b.kind==='head'?-1:0)||(parseFloat(a.name)||999)-(parseFloat(b.name)||999)||cmp(a.name,b.name);
+let SM=new Map(),BUCKETS=[];
+function index(){SM=new Map();for(const g of S.guests)if(g.table!=null)SM.set(g.table+':'+g.seat,g);
+  const o={Both:0,Avery:1,Morgan:2};BUCKETS=[...new Set(S.guests.map(g=>g.bucket||'No bucket'))].sort((a,b)=>o[sideOf(a)]-o[sideOf(b)]||cmp(a,b))}
+const qText=()=>ui.f.q.trim().toLowerCase();
+const matchQ=(g,q=qText())=>!!q&&`${name(g)} ${g.bucket} ${g.assign||''} ${g.notes||''}`.toLowerCase().includes(q);
+const assigns=()=>[...new Set(S.guests.map(g=>g.assign).filter(Boolean))].sort(cmp);
+const countAt=t=>S.guests.filter(g=>g.table===t.id).length;
+const SIDE_H={Avery:208,Morgan:342,Both:42},ASSIGN_H={Couple:168,"Avery's parents":268,"Morgan's parents":22};
+const hashH=s=>{let h=7;for(const c of String(s))h=(h*31+c.charCodeAt(0))%360;return h};
+const bucketH=b=>{const i=BUCKETS.indexOf(b);return Math.round(i*360/Math.max(1,BUCKETS.length)+200)%360};
+const rowH=b=>ui.colorBy==='bucket'?bucketH(b):SIDE_H[sideOf(b)];
+function hueFor(g){if(ui.colorBy==='assign')return ASSIGN_H[g.assign]??hashH(g.assign||'');if(ui.colorBy==='bucket')return bucketH(g.bucket);return SIDE_H[sideOf(g.bucket)]}
+
+/* ---------- state changes + undo ---------- */
+const undoStack=[],redoStack=[];
+const snap=()=>JSON.stringify({guests:S.guests,tables:S.tables,nextId:S.nextId});
+const restoreSnap=s=>{const o=JSON.parse(s);S.guests=o.guests;S.tables=o.tables;S.nextId=o.nextId};
+function writeDraft(){store.set(DRAFT_KEY,{baseRev:HOSTED?S.rev:embedded.rev,state:S,dirty:HOSTED?dirty:true,at:Date.now()})}
+function changed(msg,offerUndo){dirty=true;writeDraft();renderAll();if(msg)toast(msg,offerUndo)}
+function commit(fn,msg,offerUndo=true){const before=snap();if(fn()===false)return;undoStack.push(before);if(undoStack.length>300)undoStack.shift();redoStack.length=0;changed(typeof msg==='function'?msg():msg,offerUndo)}
+function undo(){if(!undoStack.length)return toast('Nothing to undo');redoStack.push(snap());restoreSnap(undoStack.pop());dirty=true;writeDraft();renderAll();toast('Undid last change')}
+function redo(){if(!redoStack.length)return toast('Nothing to redo');undoStack.push(snap());restoreSnap(redoStack.pop());dirty=true;writeDraft();renderAll();toast('Redid change')}
+function firstFree(t,ignore){for(let i=0;i<t.seats;i++){const g=SM.get(t.id+':'+i);if(!g||g.id===ignore)return i}return null}
+function place(gid,tid,seat){
+  const g=gById(gid),t=tById(tid);if(!g||!t)return;ui.picked=null;
+  if(seat==null){if(g.table===tid){renderAll();return}seat=firstFree(t);if(seat==null){renderAll();return toast(`${tLabel(t)} is full (${t.seats} seats). Add a seat or drop onto a person to swap.`)}}
+  if(g.table===tid&&g.seat===seat){renderAll();return}
+  const occ=SM.get(tid+':'+seat),fromT=g.table,fromS=g.seat;
+  const msg=occ&&occ!==g?(fromT!=null?`Swapped ${name(g)} and ${name(occ)}`:`${name(g)} seated · ${name(occ)} moved to unassigned`):`${name(g)} → ${tLabel(t)}, seat ${seat+1}`;
+  commit(()=>{if(occ&&occ!==g){occ.table=fromT??null;occ.seat=fromT!=null?fromS:null}g.table=tid;g.seat=seat},msg);
+}
+function unassign(gid){const g=gById(gid);ui.picked=null;if(!g||g.table==null){renderAll();return}commit(()=>{g.table=null;g.seat=null},`${name(g)} moved to unassigned`)}
+function setSeats(t,n){n=Math.max(1,Math.min(t.kind==='head'?40:16,n));if(n===t.seats)return;
+  commit(()=>{const disp=S.guests.filter(g=>g.table===t.id&&g.seat>=n);t.seats=n;const used=new Set(S.guests.filter(g=>g.table===t.id&&g.seat<n).map(g=>g.seat));
+    for(const g of disp){let s=-1;for(let i=0;i<n;i++)if(!used.has(i)){s=i;break}if(s<0){g.table=null;g.seat=null}else{g.seat=s;used.add(s)}}},`${tLabel(t)} now has ${n} seats`)}
+
+/* ---------- geometry ---------- */
+function tableBox(t){
+  if(t.kind!=='head')return{w:150,h:150,cx:75,cy:75,cw:76,ch:76};
+  const n=t.seats,top=n>=4?Math.ceil((n-2)/2):n,bot=n>=4?n-2-top:0,cw=Math.max(top,bot,1)*34+10,ch=56;
+  return{w:cw+84,h:ch+84,cx:(cw+84)/2,cy:(ch+84)/2,cw,ch,top,bot};}
+function seatPos(t){const b=tableBox(t),p=[];
+  if(t.kind!=='head'){for(let i=0;i<t.seats;i++){const a=(-90+i*360/t.seats)*Math.PI/180;p.push({x:b.cx+57*Math.cos(a),y:b.cy+57*Math.sin(a)})}return p}
+  const L=b.cx-b.cw/2,T=b.cy-b.ch/2,n=t.seats;
+  if(n<4){for(let j=0;j<n;j++)p.push({x:L+22+j*34,y:T-21});return p}
+  p.push({x:L-21,y:b.cy});for(let j=0;j<b.top;j++)p.push({x:L+22+j*34,y:T-21});
+  p.push({x:L+b.cw+21,y:b.cy});for(let j=b.bot-1;j>=0;j--)p.push({x:L+22+j*34,y:T+b.ch+21});return p}
+
+/* ---------- shell ---------- */
+const STATIC_PLAN=`<div class="room"></div>
+<div class="door" style="left:95px;top:38px;width:120px;height:9px"></div><div class="door" style="left:1255px;top:38px;width:120px;height:9px"></div>
+<div class="door" style="left:345px;top:908px;width:120px;height:9px"></div><div class="door" style="left:1060px;top:908px;width:120px;height:9px"></div>
+<div class="door" style="left:38px;top:430px;width:9px;height:200px"></div>
+<div class="lbl" style="left:95px;top:12px;width:120px">Doors</div><div class="lbl" style="left:1255px;top:12px;width:120px">Doors</div>
+<div class="lbl" style="left:345px;top:924px;width:120px">Entry</div><div class="lbl" style="left:1060px;top:924px;width:120px">Entry</div>
+<div class="dance"><b>Dance floor</b><span>about 21′ × 21′</span></div>
+<div class="hint-cap" style="left:591px;top:462px;width:314px">Willow Hall · 90′ × 58′</div>
+<div class="fixture" style="left:708px;top:84px;width:90px;height:34px">DJ · 6′</div>
+<div class="fixture" style="left:45px;top:972px;width:300px;height:40px">Escort cards, then dessert &amp; coffee</div>
+<div class="fixture" style="left:560px;top:960px;width:40px;height:40px;border-radius:50%"></div><div class="fixture" style="left:673px;top:960px;width:40px;height:40px;border-radius:50%"></div>
+<div class="hint-cap" style="left:540px;top:1006px;width:200px">Cocktail tables</div>
+<div class="fixture" style="left:800px;top:960px;width:160px;height:40px">Gift &amp; card table</div>
+<div class="scale"><i></i>10 ft</div>`;
+function shell(){
+  $('#app').innerHTML=`<header class="top">
+  <div class="brand"><h1>Avery <span class="amp">&amp;</span> Morgan</h1><div class="sub">Seating chart · Willow Hall · Demo wedding</div></div>
+  <div class="meter" id="meter"></div>
+  <div class="actions">
+    <span class="status" id="status"></span>
+    <button class="iconbtn" id="btnUndo" title="Undo (Ctrl+Z)" aria-label="Undo">${ICON.undo}</button>
+    <button class="iconbtn" id="btnRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">${ICON.redo}</button>
+    <div class="menuwrap"><button class="ghost" id="btnExport" aria-haspopup="true">Export / import ▾</button>
+      <div class="menu" id="exportMenu" hidden>
+        <button data-act="exp-csv">Guest list (.csv)<small>Same columns as your sheet, with table and seat filled in</small></button>
+        <button data-act="exp-tables">Seating by table (.csv)<small>Sorted by table and seat, for the venue</small></button>
+        <button data-act="exp-json">Backup (.json)<small>Everything, including table layout</small></button>
+        <button data-act="exp-html">This app with your chart (.html)<small>A standalone copy you can open or send</small></button>
+        <button data-act="import">Import a .json backup or .csv sheet…<small>Replaces the current guest list; you can undo it</small></button>
+      </div></div>
+    <input type="file" id="importFile" accept=".json,.csv,text/csv,application/json" hidden>
+    <button class="primary" id="btnSave" title="Save (Ctrl+S)">Save</button>
+  </div></header>
+<main class="grid" id="grid">
+  <aside class="pool">
+    <details class="buckets" open><summary><span class="eyebrow">Unassigned by bucket</span><span class="tot" id="unTotal"></span></summary><div id="bucketList"></div></details>
+    <div class="filters">
+      <input id="fq" type="search" placeholder="Find a guest (press /)" aria-label="Search guests">
+      <div class="frow"><select id="fBucket" aria-label="Bucket"></select><select id="fSide" aria-label="Side"></select></div>
+      <div class="frow"><select id="fAssign" aria-label="Assigned to"></select>
+        <select id="fSort" aria-label="Sort"><option value="bucket">Group by bucket</option><option value="last">Sort by last name</option><option value="first">Sort by first name</option><option value="assign">Group by assigned to</option></select></div>
+      <div class="fmeta"><span id="fCount"></span><button class="link" data-act="fclear">Clear filters</button></div>
+    </div>
+    <div class="list" id="guestList" data-drop data-unassign></div>
+    <div class="poolfoot"><button class="ghost wide" data-act="addGuest">+ Add guest</button></div>
+  </aside>
+  <section class="stage">
+    <div class="toolbar">
+      <div class="seg"><button data-view="plan">Floor plan</button><button data-view="cards">Table list</button></div>
+      <label class="sel">Color by <select id="colorBy"><option value="side">Side</option><option value="bucket">Bucket</option><option value="assign">Assigned to</option></select></label>
+      <div class="legend" id="legend"></div>
+      <div class="spacer"></div>
+      <div class="zoom planonly"><button data-act="zout" aria-label="Zoom out">−</button><span id="zVal"></span><button data-act="zin" aria-label="Zoom in">+</button></div>
+      <button class="ghost planonly" id="btnLayout" data-act="layout">Move tables</button>
+      <button class="ghost" data-act="addTable">+ Table</button>
+    </div>
+    <div class="pickbar" id="pickbar" hidden></div>
+    <div class="planwrap" id="planwrap"><div class="sizer" id="sizer"><div class="plan" id="plan"></div></div></div>
+    <div class="cards" id="cards" hidden></div>
+  </section>
+  <aside class="inspector" id="inspector"></aside>
+</main>
+<div class="toast" id="toast" hidden></div>
+<div class="modal-back" id="modal" hidden></div>`;
+}
+
+/* ---------- render ---------- */
+function chip(g,ctx){
+  const tip=`${name(g)} · ${g.bucket}${g.assign?' · '+g.assign:''}${g.notes?' · '+g.notes:''}`;
+  return `<div class="chip ${ui.picked===g.id?'picked':''}" draggable="true" data-gid="${g.id}" title="${esc(tip)}">
+  <span class="sw tint" style="--h:${hueFor(g)}"></span><span class="cn"><span class="nm">${esc(name(g))}</span><span class="bk">${esc(g.notes?g.bucket+' · '+g.notes:g.bucket)}</span></span>
+  ${g.assign?`<span class="tag">${esc(g.assign)}</span>`:''}
+  <button class="ib" data-act="edit" data-gid="${g.id}" title="Edit guest" aria-label="Edit ${esc(name(g))}">${ICON.edit}</button>
+  ${ctx==='seat'?`<button class="ib" data-act="unseat" data-gid="${g.id}" title="Move to unassigned" aria-label="Unassign ${esc(name(g))}">${ICON.x}</button>`:''}</div>`}
+function fillSelect(el,opts,all,val){el.innerHTML=`<option value="">${esc(all)}</option>`+opts.map(o=>`<option value="${esc(o.v)}">${esc(o.l)}</option>`).join('');el.value=opts.some(o=>o.v===val)?val:'';}
+function filtered(){const f=ui.f,q=f.q.trim().toLowerCase();
+  let l=S.guests.filter(g=>g.table==null);
+  if(f.bucket)l=l.filter(g=>g.bucket===f.bucket);
+  if(f.side)l=l.filter(g=>sideOf(g.bucket)===f.side);
+  if(f.assign)l=l.filter(g=>(g.assign||'')===f.assign);
+  if(q)l=l.filter(g=>matchQ(g,q));
+  const byName=(a,b)=>cmp(a.last,b.last)||cmp(a.first,b.first);
+  if(f.sort==='first')l.sort((a,b)=>cmp(a.first,b.first)||cmp(a.last,b.last));
+  else if(f.sort==='bucket')l.sort((a,b)=>BUCKETS.indexOf(a.bucket)-BUCKETS.indexOf(b.bucket)||byName(a,b));
+  else if(f.sort==='assign')l.sort((a,b)=>cmp(a.assign,b.assign)||byName(a,b));
+  else l.sort(byName);
+  return l}
+function renderTop(){
+  const tot=S.guests.length,seated=S.guests.filter(g=>g.table!=null).length,cap=S.tables.reduce((s,t)=>s+t.seats,0);
+  $('#meter').innerHTML=`<div class="bar"><i style="width:${tot?seated/tot*100:0}%"></i></div><span class="num"><b>${seated}</b> of ${tot} seated · ${cap-seated} open seats</span>`;
+  renderStatus()}
+function renderStatus(){const st=$('#status');let t,c;
+  if(ui.saving){t='Saving…';c='busy'}else if(!HOSTED){t='Autosaved in this browser';c='ok'}
+  else if(ui.readOnly){t=dirty?'View only · edits kept in this browser':'View only';c='warn'}
+  else{t=dirty?'Unsaved changes':'All changes saved';c=dirty?'warn':'ok'}
+  st.textContent=t;st.className='status '+c;$('#btnSave').disabled=ui.saving;$('#btnUndo').disabled=!undoStack.length;$('#btnRedo').disabled=!redoStack.length}
+function renderPool(){
+  const un=S.guests.filter(g=>g.table==null);
+  $('#unTotal').innerHTML=`<b>${un.length}</b> left`;
+  $('#bucketList').innerHTML=BUCKETS.map(b=>{const all=S.guests.filter(g=>g.bucket===b),rem=all.filter(g=>g.table==null).length,pct=all.length?(all.length-rem)/all.length*100:0;
+    return `<button class="brow ${ui.f.bucket===b?'on':''} ${rem===0?'done':''}" data-act="fbucket" data-b="${esc(b)}" style="--h:${rowH(b)}" title="${rem} of ${all.length} still unassigned — click to filter">
+    <span class="sw tint"></span><span class="bn">${esc(b)}</span><span class="bc">${rem===0?'<b>✓</b>':`<b>${rem}</b>`}<small> / ${all.length}</small></span><span class="bar"><i style="width:${pct}%"></i></span></button>`}).join('');
+  fillSelect($('#fBucket'),BUCKETS.map(b=>({v:b,l:b})),'All buckets',ui.f.bucket);
+  fillSelect($('#fSide'),['Avery','Morgan','Both'].map(s=>({v:s,l:SIDE_LABEL[s]})),'Both sides',ui.f.side);
+  fillSelect($('#fAssign'),assigns().map(a=>({v:a,l:'Assigned: '+a})),'Anyone assigned',ui.f.assign);
+  $('#fSort').value=ui.f.sort;
+  renderList()}
+function renderList(){
+  const l=filtered(),un=S.guests.filter(g=>g.table==null).length;
+  $('#fCount').textContent=l.length===un?`${un} unassigned`:`${l.length} of ${un} unassigned`;
+  let h='',grp=null;const key=ui.f.sort==='bucket'?g=>g.bucket:ui.f.sort==='assign'?g=>g.assign||'Nobody':null;
+  const counts={};if(key)for(const g of l)counts[key(g)]=(counts[key(g)]||0)+1;
+  for(const g of l){if(key&&key(g)!==grp){grp=key(g);h+=`<div class="ghead"><span>${esc(grp)}</span><span>${counts[grp]}</span></div>`}h+=chip(g,'pool')}
+  const q=qText(),seated=q?S.guests.filter(g=>g.table!=null&&matchQ(g,q)).sort((a,b)=>cmp(a.last,b.last)||cmp(a.first,b.first)):[];
+  if(!l.length)h=seated.length?`<div class="none slim">No unassigned guests match “${esc(ui.f.q.trim())}”.</div>`:`<div class="none">${q?`Nobody matches “${esc(ui.f.q.trim())}”.`:un?'No unassigned guests match these filters.':'Everyone has a seat.'}<br>${q?'Try a first name, last name or bucket.':'Search to find where someone is sitting.<br>Drag a seated guest here to unassign them.'}</div>`;
+  if(seated.length){h+=`<div class="ghead"><span>Already seated</span><span>${seated.length}</span></div>`+seated.map(g=>{const t=tById(g.table);
+    return `<button class="found" data-act="openTable" data-tid="${t.id}" title="Show ${esc(tLabel(t))}"><span class="sw tint" style="--h:${hueFor(g)}"></span><span class="nm">${esc(name(g))}</span><span class="where">${esc(tLabel(t))} · seat ${g.seat+1}</span></button>`}).join('')}
+  $('#guestList').innerHTML=h}
+function renderLegend(){const L=$('#legend');
+  if(ui.colorBy==='side')L.innerHTML=['Avery','Morgan','Both'].map(s=>`<span><i class="tint" style="--h:${SIDE_H[s]}"></i>${SIDE_LABEL[s]}</span>`).join('');
+  else if(ui.colorBy==='assign')L.innerHTML=assigns().map(a=>`<span><i class="tint" style="--h:${ASSIGN_H[a]??hashH(a)}"></i>${esc(a)}</span>`).join('');
+  else L.innerHTML='<span>Colors match the bucket list</span>'}
+function tableHTML(t){
+  const b=tableBox(t),filled=countAt(t);let seats='';
+  seatPos(t).forEach((p,i)=>{const g=SM.get(t.id+':'+i),st=`left:${p.x.toFixed(1)}px;top:${p.y.toFixed(1)}px`;
+    seats+=g?`<div class="seat filled tint ${ui.picked===g.id?'picked':''} ${matchQ(g)?'hit':''}" style="${st};--h:${hueFor(g)}" draggable="true" data-gid="${g.id}" data-drop data-table="${t.id}" data-seat="${i}" title="${esc(name(g))} · ${esc(g.bucket)} · seat ${i+1}">${esc(initials(g))}</div>`
+      :`<div class="seat" style="${st}" data-drop data-table="${t.id}" data-seat="${i}" title="${esc(tLabel(t))} · seat ${i+1} (open)"></div>`});
+  return `<div class="tbl ${t.kind} ${ui.sel===t.id?'sel':''} ${filled>=t.seats?'full':''}" data-tid="${t.id}" style="left:${t.x-b.w/2}px;top:${t.y-b.h/2}px;width:${b.w}px;height:${b.h}px">
+  <div class="core" data-core data-drop data-table="${t.id}" style="left:${b.cx-b.cw/2}px;top:${b.cy-b.ch/2}px;width:${b.cw}px;height:${b.ch}px" title="${esc(tLabel(t))} — click to see seats"><span class="tn">${esc(t.kind==='head'?tLabel(t):t.name)}</span><span class="tc">${filled}/${t.seats}</span></div>${seats}</div>`}
+let SCALE=1;
+function fitPlan(){const w=$('#planwrap');if(!w||ui.view!=='plan')return;const avail=Math.max(300,w.clientWidth-32);SCALE=avail/PLAN_W*ui.zoom;
+  $('#sizer').style.width=PLAN_W*SCALE+'px';$('#sizer').style.height=PLAN_H*SCALE+'px';$('#plan').style.transform=`scale(${SCALE})`;$('#zVal').textContent=Math.round(ui.zoom*100)+'%'}
+function renderPlan(){const p=$('#plan');p.innerHTML=STATIC_PLAN+S.tables.map(tableHTML).join('');p.classList.toggle('layout',ui.layout);p.classList.toggle('searching',!!qText());$('#btnLayout').classList.toggle('on-toggle',ui.layout);$('#btnLayout').textContent=ui.layout?'Done moving':'Move tables';fitPlan()}
+function seatRows(t){let h='';for(let i=0;i<t.seats;i++){const g=SM.get(t.id+':'+i);h+=`<div class="srow ${g?'':'open'}" data-drop data-table="${t.id}" data-seat="${i}"><span class="sno">${i+1}</span>${g?chip(g,'seat'):'<span class="empty">Open seat</span>'}</div>`}return h}
+function renderInspector(){
+  const el=$('#inspector'),t=ui.sel&&tById(ui.sel);
+  if(!t){el.classList.remove('open');el.innerHTML=`<div class="insp-empty"><h3>Pick a table</h3><p>Click any table on the floor plan to see who sits in each seat, rename it, or change its seat count.</p><p>Drag a guest onto a seat to put them there, or onto the middle of a table to take the next open seat. Drop onto someone to swap.</p><p>No mouse? Click a guest, then click a seat.</p></div>`;return}
+  el.classList.add('open');const filled=countAt(t);
+  const mix={};for(const g of S.guests)if(g.table===t.id)mix[g.bucket]=(mix[g.bucket]||0)+1;
+  const c=ui.confirm;
+  el.innerHTML=`<div class="insp-head"><div><div class="eyebrow">${t.kind==='head'?'Head table':'Round table'}</div>
+    <label class="tname">${t.kind==='head'?'':'<span>Table</span>'}<input id="tName" value="${esc(t.kind==='head'?tLabel(t):t.name)}" aria-label="Table name"></label></div>
+    <button class="ib" data-act="closeInsp" aria-label="Close">${ICON.x}</button></div>
+  <div class="insp-meta"><span><b>${filled}</b> of ${t.seats} seated</span><div class="stepper"><button data-act="seats-" aria-label="Remove a seat">−</button><span>${t.seats} seats</span><button data-act="seats+" aria-label="Add a seat">+</button></div></div>
+  ${Object.keys(mix).length?`<div class="mix">${Object.entries(mix).sort((a,b)=>b[1]-a[1]).map(([b,n])=>`<span class="tint" style="--h:${rowH(b)}">${esc(b)} · ${n}</span>`).join('')}</div>`:''}
+  <div class="srows">${seatRows(t)}</div>
+  <div class="insp-foot"><button class="ghost" data-act="clearTable" ${filled?'':'disabled'}>${c==='clear:'+t.id?'Click again to clear':'Clear table'}</button>
+  <button class="ghost danger" data-act="delTable">${c==='del:'+t.id?'Click again to delete':'Delete table'}</button></div>`}
+function renderCards(){$('#cards').innerHTML=S.tables.slice().sort(tOrder).map(t=>{const f=countAt(t);
+  return `<div class="card ${t.kind}"><div class="card-h"><button class="card-t" data-act="openTable" data-tid="${t.id}" title="Show on floor plan">${esc(tLabel(t))}</button><span class="cnt ${f>=t.seats?'full':''}">${f} / ${t.seats}</span></div><div class="srows">${seatRows(t)}</div></div>`}).join('')}
+function renderPick(){const b=$('#pickbar'),g=ui.picked&&gById(ui.picked);if(!g){b.hidden=true;return}
+  b.hidden=false;b.innerHTML=`<span>Placing <b>${esc(name(g))}</b>. Click a seat or a table${g.table!=null?', or the guest list to unassign':''}.</span><button data-act="cancelPick">Cancel</button>`}
+function renderAll(){index();renderTop();renderPool();renderLegend();renderPick();
+  const plan=ui.view==='plan';$('#grid').classList.toggle('cards-view',!plan);$('#planwrap').hidden=!plan;$('#cards').hidden=plan;
+  document.querySelectorAll('.planonly').forEach(e=>e.hidden=!plan);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===ui.view));
+  $('#colorBy').value=ui.colorBy;
+  if(plan){renderPlan();renderInspector()}else renderCards()}
+
+/* ---------- toast + modal ---------- */
+let toastT;
+function toast(msg,offerUndo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</span>${offerUndo?'<button data-act="undo">Undo</button>':''}`;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,offerUndo?6000:4000)}
+function closeModal(){$('#modal').hidden=true;$('#modal').innerHTML=''}
+function openGuest(gid){
+  const g=gid?gById(gid):null,m=$('#modal');let delArmed=false;
+  const topts=S.tables.slice().sort(tOrder).map(t=>{const f=countAt(t),mine=g&&g.table===t.id,full=f>=t.seats&&!mine;return `<option value="${t.id}" ${mine?'selected':''} ${full?'disabled':''}>${esc(tLabel(t))} (${f}/${t.seats})${full?' · full':''}</option>`}).join('');
+  m.innerHTML=`<form class="modal" id="gForm" novalidate><h2>${g?'Edit guest':'Add a guest'}</h2><div class="form">
+    <label>First name<input id="gFirst" value="${esc(g?.first)}" autocomplete="off"></label>
+    <label>Last name<input id="gLast" value="${esc(g?.last)}" autocomplete="off"></label>
+    <label>Bucket<input id="gBucket" list="dlB" value="${esc(g?.bucket??ui.f.bucket)}" placeholder="Pick or type a new one"></label>
+    <label>Assigned to<input id="gAssign" list="dlA" value="${esc(g?.assign??'Couple')}"></label>
+    <label class="full">Table<select id="gTable"><option value="">Unassigned</option>${topts}</select></label>
+    <label class="full">Notes<input id="gNotes" value="${esc(g?.notes)}" placeholder="Meal choice, high chair, plus-one of…"></label>
+    <div class="err" id="gErr" hidden></div></div>
+    <datalist id="dlB">${BUCKETS.map(b=>`<option value="${esc(b)}">`).join('')}</datalist><datalist id="dlA">${assigns().map(a=>`<option value="${esc(a)}">`).join('')}</datalist>
+    <div class="mfoot">${g?'<button type="button" class="ghost danger" id="gDel">Delete guest</button>':''}<span class="grow"></span><button type="button" class="ghost" id="gCancel">Cancel</button><button class="primary" type="submit">${g?'Save guest':'Add guest'}</button></div></form>`;
+  m.hidden=false;setTimeout(()=>$('#gFirst').focus(),0);
+  $('#gCancel').onclick=closeModal;
+  if(g)$('#gDel').onclick=e=>{if(!delArmed){delArmed=true;e.target.textContent='Click again to delete';return}closeModal();commit(()=>{S.guests=S.guests.filter(x=>x.id!==g.id)},`Deleted ${name(g)}`)};
+  $('#gForm').onsubmit=e=>{e.preventDefault();
+    const v={first:$('#gFirst').value.trim(),last:$('#gLast').value.trim(),bucket:$('#gBucket').value.trim()||'No bucket',assign:$('#gAssign').value.trim(),notes:$('#gNotes').value.trim()},tid=$('#gTable').value||null;
+    if(!v.first&&!v.last){const er=$('#gErr');er.hidden=false;er.textContent='Add at least a first or last name.';return}
+    closeModal();
+    commit(()=>{let x=g;if(!x){x={id:'g'+(S.nextId++),table:null,seat:null};S.guests.push(x)}Object.assign(x,v);
+      if(tid!==x.table){if(!tid){x.table=null;x.seat=null}else{const t=tById(tid),s=firstFree(t,x.id);if(s==null)return;x.table=tid;x.seat=s}}},
+      g?`Saved ${v.first} ${v.last}`.trim():`Added ${v.first} ${v.last}`.trim())}}
+
+/* ---------- save / export / import ---------- */
+const capCache={};
+function getCap(n){if(!HOSTED)return Promise.resolve(null);return capCache[n]??=window.claude.use(n).catch(()=>null)}
+const HEAD_EXTRA='<title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Figtree:wght@400;500;600;700&family=Pinyon+Script&display=swap">';
+const RESET=':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,-apple-system,sans-serif;background:#fafaf9}img{max-width:100%}[hidden]{display:none!important}';
+function buildDocument(state){const hs=document.head.querySelector('style:not([id])');const reset=hs?hs.textContent:RESET;
+  const json=JSON.stringify(state).replace(/</g,'\\u003c');
+  return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>'+reset+'</style></head><body>'+HEAD_EXTRA+'<style id="app-css">'+$('#app-css').textContent+'</style><div id="app"></div><script type="application/json" id="seating-data">'+json+'<\/script><script id="app-js">'+$('#app-js').textContent+'<\/script></body></html>'}
+const rid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36);
+async function save(){
+  if(ui.saving)return;
+  if(!HOSTED){writeDraft();dirty=false;renderStatus();return toast('Saved in this browser. Export the .html or .json to keep a backup or share it.')}
+  const art=ui.readOnly?null:await getCap('artifact');
+  if(!art){ui.readOnly=true;writeDraft();renderStatus();return toast("This view can't update the shared chart. Your edits stay in this browser; use Export to share them.")}
+  const prev=S.rev;S.rev=rid();S.savedAt=new Date().toISOString();
+  store.set(DRAFT_KEY,{baseRev:S.rev,state:S,dirty:false,at:Date.now()});
+  ui.saving=true;renderStatus();
+  try{await art.publish(buildDocument(S));ui.saving=false;dirty=false;renderStatus();toast('Saved. Anyone with this page sees the update.')}
+  catch(e){ui.saving=false;S.rev=prev;const code=e&&e.code;store.set(DRAFT_KEY,{baseRev:prev,state:S,dirty:true,at:Date.now()});
+    if(code==='conflict')toast('Someone else saved a newer version. Loading it now.');
+    else if(code==='not_writer'||code==='not_granted'){ui.readOnly=true;toast("You have view-only access, so your edits stay in this browser. Use Export to share them.")}
+    else toast(`Couldn't save (${code||'error'}). Your edits are still kept in this browser.`);
+    renderStatus()}}
+const today=()=>new Date().toISOString().slice(0,10);
+const csvCell=v=>{v=String(v??'');return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+const toCSV=rows=>'﻿'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
+async function offerFile(filename,data,mime){
+  if(HOSTED){const d=await getCap('downloads');if(!d)return toast("Downloads aren't available in this view.");
+    try{await d.save({filename,data});toast(`Saved ${filename}`)}catch(e){if(e&&e.code==='declined')return;toast(`Couldn't save the file (${e&&e.code||'error'}).`)}return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:mime}));a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+function tcol(g){const t=g.table&&tById(g.table);return t?(t.kind==='head'?'Head':t.name):''}
+function exportCSV(){offerFile(`seating-chart-${today()}.csv`,toCSV([['First Name','Last Name','Full Name','Bucket','Table','Seat','Assign','Notes'],...S.guests.map(g=>[g.first,g.last,name(g),g.bucket,tcol(g),g.table?g.seat+1:'',g.assign,g.notes])]),'text/csv')}
+function exportTables(){const rows=[['Table','Seat','Full Name','Bucket','Assign','Notes']];
+  for(const t of S.tables.slice().sort(tOrder))for(let i=0;i<t.seats;i++){const g=SM.get(t.id+':'+i);rows.push([tLabel(t),i+1,g?name(g):'(open)',g?.bucket||'',g?.assign||'',g?.notes||''])}
+  const un=S.guests.filter(g=>g.table==null);for(const g of un)rows.push(['Unassigned','',name(g),g.bucket,g.assign,g.notes]);
+  offerFile(`seating-by-table-${today()}.csv`,toCSV(rows),'text/csv')}
+function exportJSON(){offerFile(`seating-backup-${today()}.json`,JSON.stringify(S,null,1),'application/json')}
+function exportHTML(){offerFile(`seating-chart-${today()}.html`,buildDocument({...S,rev:rid()}),'text/html')}
+function parseCSV(text){text=text.replace(/^﻿/,'');const rows=[];let row=[],f='',q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++}else q=false}else f+=c}
+    else if(c==='"')q=true;else if(c===','){row.push(f);f=''}
+    else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(f);rows.push(row);row=[];f=''}else f+=c}
+  if(f!==''||row.length){row.push(f);rows.push(row)}return rows.filter(r=>r.some(x=>x.trim()!==''))}
+function importText(text,fname){
+  if(/\.json$/i.test(fname)||/^\s*\{/.test(text)){let o;try{o=JSON.parse(text)}catch(e){return toast("That file isn't valid JSON.")}
+    if(!Array.isArray(o.guests)||!Array.isArray(o.tables))return toast("That JSON isn't a seating backup from this app.");
+    commit(()=>{S.guests=o.guests;S.tables=o.tables;S.nextId=Math.max(o.nextId||1000,1000)},`Imported ${o.guests.length} guests and ${o.tables.length} tables`);return}
+  const rows=parseCSV(text);if(rows.length<2)return toast('That CSV has no guest rows.');
+  const H=rows[0].map(h=>h.trim().toLowerCase()),ix=k=>H.indexOf(k);
+  const iF=ix('first name'),iL=ix('last name'),iN=ix('full name'),iB=ix('bucket'),iT=ix('table'),iS=ix('seat'),iA=ix('assign'),iO=ix('notes');
+  if(iF<0&&iN<0)return toast('The CSV needs a "First Name" or "Full Name" column.');
+  commit(()=>{const used=new Set(),list=[];let n=S.nextId;
+    for(const r of rows.slice(1)){let first=iF>=0?r[iF]?.trim():'',last=iL>=0?r[iL]?.trim():'';
+      if(!first&&!last&&iN>=0){const p=(r[iN]||'').trim().split(/\s+/);first=p.shift()||'';last=p.join(' ')}
+      if(!first&&!last)continue;
+      const g={id:'g'+(n++),first,last,bucket:(iB>=0&&r[iB]?.trim())||'No bucket',assign:iA>=0?(r[iA]||'').trim():'',notes:iO>=0?(r[iO]||'').trim():'',table:null,seat:null};
+      const tv=iT>=0?(r[iT]||'').trim():'';if(tv){const t=S.tables.find(t=>tv.toLowerCase()==='head'?t.kind==='head':t.name.toLowerCase()===tv.toLowerCase().replace(/^table\s*/,''));
+        if(t){let s=iS>=0?parseInt(r[iS],10)-1:NaN;if(!(s>=0&&s<t.seats)||used.has(t.id+':'+s)){s=-1;for(let i=0;i<t.seats;i++)if(!used.has(t.id+':'+i)){s=i;break}}
+          if(s>=0){g.table=t.id;g.seat=s;used.add(t.id+':'+s)}}}
+      list.push(g)}
+    S.guests=list;S.nextId=n},()=>`Imported ${S.guests.length} guests from ${fname}`)}
+
+/* ---------- events ---------- */
+let dragGid=null,overEl=null,justDragged=false;
+function handleAct(act,el){
+  const t=ui.sel&&tById(ui.sel);
+  if(act!=='clearTable'&&act!=='delTable')ui.confirm=null;
+  switch(act){
+    case 'undo':return undo();
+    case 'edit':return openGuest(el.dataset.gid);
+    case 'unseat':return unassign(el.dataset.gid);
+    case 'addGuest':return openGuest(null);
+    case 'fbucket':{const b=el.dataset.b;ui.f.bucket=ui.f.bucket===b?'':b;return renderPool()}
+    case 'fclear':ui.f={q:'',bucket:'',side:'',assign:'',sort:ui.f.sort};$('#fq').value='';return renderAll();
+    case 'cancelPick':ui.picked=null;return renderAll();
+    case 'closeInsp':ui.sel=null;return renderAll();
+    case 'seats-':return t&&setSeats(t,t.seats-1);
+    case 'seats+':return t&&setSeats(t,t.seats+1);
+    case 'clearTable':if(!t)return;if(ui.confirm!=='clear:'+t.id){ui.confirm='clear:'+t.id;renderInspector();setTimeout(()=>{if(ui.confirm==='clear:'+t.id){ui.confirm=null;renderInspector()}},4000);return}
+      ui.confirm=null;return commit(()=>{for(const g of S.guests)if(g.table===t.id){g.table=null;g.seat=null}},`Cleared ${tLabel(t)}`);
+    case 'delTable':if(!t)return;if(ui.confirm!=='del:'+t.id){ui.confirm='del:'+t.id;renderInspector();setTimeout(()=>{if(ui.confirm==='del:'+t.id){ui.confirm=null;renderInspector()}},4000);return}
+      ui.confirm=null;ui.sel=null;return commit(()=>{for(const g of S.guests)if(g.table===t.id){g.table=null;g.seat=null}S.tables=S.tables.filter(x=>x.id!==t.id)},`Deleted ${tLabel(t)}`);
+    case 'openTable':ui.view='plan';ui.sel=el.dataset.tid;savePrefs();return renderAll();
+    case 'zin':ui.zoom=Math.min(3,+(ui.zoom+.25).toFixed(2));savePrefs();return fitPlan();
+    case 'zout':ui.zoom=Math.max(.5,+(ui.zoom-.25).toFixed(2));savePrefs();return fitPlan();
+    case 'layout':ui.layout=!ui.layout;renderPlan();if(ui.layout)toast('Drag tables by their center to move them. Click "Done moving" when finished.');return;
+    case 'addTable':{const nums=S.tables.map(x=>parseInt(x.name,10)).filter(n=>!isNaN(n));const nt={id:'t'+(S.nextId++),name:String((nums.length?Math.max(...nums):0)+1),kind:'round',seats:10,x:748,y:299};
+      ui.view='plan';ui.sel=nt.id;ui.layout=true;savePrefs();return commit(()=>{S.tables.push(nt)},`Added Table ${nt.name} on the dance floor. Drag it into place.`)}
+    case 'exp-csv':case 'exp-tables':case 'exp-json':case 'exp-html':case 'import':$('#exportMenu').hidden=true;
+      if(act==='exp-csv')return exportCSV();if(act==='exp-tables')return exportTables();if(act==='exp-json')return exportJSON();if(act==='exp-html')return exportHTML();
+      $('#importFile').value='';return $('#importFile').click();
+  }}
+function bind(){
+  document.addEventListener('click',e=>{
+    if(e.target.id==='modal')return closeModal();
+    if(!e.target.closest('.menuwrap'))$('#exportMenu').hidden=true;
+    const a=e.target.closest('[data-act]');if(a){if(!a.disabled)handleAct(a.dataset.act,a);return}
+    const v=e.target.closest('[data-view]');if(v){ui.view=v.dataset.view;ui.layout=false;savePrefs();return renderAll()}
+    const c=e.target.closest('.chip');
+    if(c){const gid=c.dataset.gid,row=c.closest('[data-seat]');
+      if(ui.picked&&ui.picked!==gid&&row)return place(ui.picked,row.dataset.table,+row.dataset.seat);
+      ui.picked=ui.picked===gid?null:gid;return renderAll()}
+    const core=e.target.closest('[data-core]');
+    if(core){if(justDragged||ui.layout)return;const tid=core.dataset.table;if(ui.picked)return place(ui.picked,tid,null);ui.sel=ui.sel===tid?null:tid;return renderAll()}
+    const s=e.target.closest('[data-seat]');
+    if(s){const tid=s.dataset.table,i=+s.dataset.seat;if(ui.picked)return place(ui.picked,tid,i);const g=SM.get(tid+':'+i);ui.sel=tid;ui.picked=g?g.id:null;return renderAll()}
+    if(e.target.closest('#guestList')&&ui.picked){const g=gById(ui.picked);if(g&&g.table!=null)return unassign(g.id)}
+  });
+  $('#btnUndo').onclick=undo;$('#btnRedo').onclick=redo;$('#btnSave').onclick=save;
+  $('#btnExport').onclick=()=>{$('#exportMenu').hidden=!$('#exportMenu').hidden};
+  $('#importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>importText(String(r.result),f.name);r.readAsText(f)};
+  $('#fq').oninput=e=>{ui.f.q=e.target.value;renderList();if(ui.view==='plan')renderPlan()};
+  $('#fBucket').onchange=e=>{ui.f.bucket=e.target.value;renderPool()};
+  $('#fSide').onchange=e=>{ui.f.side=e.target.value;renderList()};
+  $('#fAssign').onchange=e=>{ui.f.assign=e.target.value;renderList()};
+  $('#fSort').onchange=e=>{ui.f.sort=e.target.value;renderList()};
+  $('#colorBy').onchange=e=>{ui.colorBy=e.target.value;savePrefs();renderAll()};
+  document.addEventListener('change',e=>{if(e.target.id==='tName'){const t=tById(ui.sel),v=e.target.value.trim();if(t&&v&&v!==t.name)commit(()=>{t.name=v},`Renamed to ${tLabel({...t,name:v})}`)}});
+  document.addEventListener('dragstart',e=>{const d=e.target.closest&&e.target.closest('[data-gid][draggable]');if(!d)return;dragGid=d.dataset.gid;
+    e.dataTransfer.setData('text/plain',dragGid);e.dataTransfer.effectAllowed='move';document.body.classList.add('dragging');requestAnimationFrame(()=>d.classList.add('ghosted'))});
+  const endDrag=()=>{document.body.classList.remove('dragging');document.querySelectorAll('.ghosted,.over').forEach(x=>x.classList.remove('ghosted','over'));overEl=null;dragGid=null};
+  document.addEventListener('dragend',endDrag);
+  document.addEventListener('dragover',e=>{if(!dragGid)return;const z=e.target.closest&&e.target.closest('[data-drop]');if(!z){overEl?.classList.remove('over');overEl=null;return}
+    e.preventDefault();e.dataTransfer.dropEffect='move';if(overEl!==z){overEl?.classList.remove('over');z.classList.add('over');overEl=z}});
+  document.addEventListener('drop',e=>{if(!dragGid)return;const z=e.target.closest&&e.target.closest('[data-drop]');e.preventDefault();const gid=dragGid;endDrag();if(!z)return;
+    if('unassign' in z.dataset)unassign(gid);else place(gid,z.dataset.table,z.dataset.seat!=null?+z.dataset.seat:null)});
+  document.addEventListener('pointerdown',e=>{if(!ui.layout)return;const core=e.target.closest('[data-core]');if(!core)return;
+    const tEl=core.closest('.tbl'),t=tById(tEl.dataset.tid);if(!t)return;e.preventDefault();
+    const st={x:e.clientX,y:e.clientY,tx:t.x,ty:t.y,before:snap()};let moved=false;core.setPointerCapture(e.pointerId);
+    const mv=ev=>{const dx=(ev.clientX-st.x)/SCALE,dy=(ev.clientY-st.y)/SCALE;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;if(!moved)return;
+      const b=tableBox(t);t.x=Math.round(Math.min(PLAN_W-b.w/2,Math.max(b.w/2,st.tx+dx)));t.y=Math.round(Math.min(PLAN_H-b.h/2,Math.max(b.h/2,st.ty+dy)));
+      tEl.style.left=(t.x-b.w/2)+'px';tEl.style.top=(t.y-b.h/2)+'px'};
+    const up=()=>{core.removeEventListener('pointermove',mv);core.removeEventListener('pointerup',up);core.removeEventListener('pointercancel',up);
+      if(moved){justDragged=true;setTimeout(()=>justDragged=false,80);undoStack.push(st.before);redoStack.length=0;changed(`Moved ${tLabel(t)}`,true)}};
+    core.addEventListener('pointermove',mv);core.addEventListener('pointerup',up);core.addEventListener('pointercancel',up)});
+  document.addEventListener('keydown',e=>{const inField=e.target.matches&&e.target.matches('input,select,textarea'),mod=e.metaKey||e.ctrlKey,k=e.key.toLowerCase();
+    if(e.key==='Escape'&&e.target.id==='fq'&&e.target.value){e.target.value='';ui.f.q='';return renderAll()}
+    if(e.key==='/'&&!inField&&!mod&&$('#modal').hidden){e.preventDefault();return $('#fq').focus()}
+    if(mod&&k==='s'){e.preventDefault();return save()}
+    if(mod&&!inField&&(k==='z'||k==='y')){e.preventDefault();return (k==='y'||e.shiftKey)?redo():undo()}
+    if(e.key==='Escape'){if(!$('#modal').hidden)return closeModal();$('#exportMenu').hidden=true;if(ui.picked){ui.picked=null;return renderAll()}if(ui.layout){ui.layout=false;return renderPlan()}if(ui.sel){ui.sel=null;return renderAll()}}});
+  addEventListener('beforeunload',e=>{if(HOSTED&&dirty&&!ui.readOnly){e.preventDefault();e.returnValue=''}});
+  if('ResizeObserver' in window)new ResizeObserver(()=>fitPlan()).observe($('#planwrap'));else addEventListener('resize',fitPlan);
+}
+shell();bind();if(!S.guests.some(g=>g.table==null))$('.buckets').open=false;renderAll();
+if(restored)toast('Restored your unsaved changes from this browser. Click Save to share them.');
+if(HOSTED)getCap('artifact').then(a=>{if(!a){ui.readOnly=true;renderStatus()}});
+})();
+</script></body></html>
