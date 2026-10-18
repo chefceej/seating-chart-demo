@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500;600&display=swap"><style id="app-css">
 /* Layout: guest pool (left) · Willow Hall floor plan (center) · table inspector (right)
-   Garden Party: sage paper, blush and champagne accents, italic serif display. Dark mode is evening garden. */
+   Garden Party: sage paper, blush and champagne accents, italic serif display. Light only, in both system themes. */
 :root{
   --bg:#f2f5ee;--panel:#fbfcf8;--raised:#ffffff;--ink:#2f3a33;--muted:#66756b;--faint:#9aa79e;
   --line:#dde6d9;--line-strong:#c7d4c3;--wall:#a9bca6;
@@ -13,25 +13,8 @@
   --font-display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
   --font-script:"Cormorant Garamond","Cormorant",Georgia,serif;
   --font-body:"Jost","Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#181e1a;--panel:#1f2621;--raised:#27302a;--ink:#e8efe9;--muted:#a7b5ab;--faint:#77857b;
-  --line:#323c35;--line-strong:#4a574e;--wall:#6f8270;
-  --accent:#a9c7a6;--accent-ink:#16201a;--accent-soft:#2c3a2f;--gold:#e0b3aa;
-  --floor:#151a16;--room:#1f2621;--dance:#243027;--tablebg:#2a332d;--empty:#2d3730;
-  --dotS:34%;--dotL:38%;--edgeL:70%;
-  --danger:#e8928a;--ok:#9fcca8;--warn:#e2b06f;
-  --scrim:rgb(0 0 0/.5);
-  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 30px rgb(0 0 0/.35);color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#181e1a;--panel:#1f2621;--raised:#27302a;--ink:#e8efe9;--muted:#a7b5ab;--faint:#77857b;
-  --line:#323c35;--line-strong:#4a574e;--wall:#6f8270;
-  --accent:#a9c7a6;--accent-ink:#16201a;--accent-soft:#2c3a2f;--gold:#e0b3aa;
-  --floor:#151a16;--room:#1f2621;--dance:#243027;--tablebg:#2a332d;--empty:#2d3730;
-  --dotS:34%;--dotL:38%;--edgeL:70%;
-  --danger:#e8928a;--ok:#9fcca8;--warn:#e2b06f;
-  --scrim:rgb(0 0 0/.5);
-  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 30px rgb(0 0 0/.35);color-scheme:dark}
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.35}
 #app{height:100%;display:flex;flex-direction:column}
