@@ -1,37 +1,37 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Figtree:wght@400;500;600;700&family=Pinyon+Script&display=swap"><style id="app-css">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500;600&display=swap"><style id="app-css">
 /* Layout: guest pool (left) · Willow Hall floor plan (center) · table inspector (right)
-   Palette: blush paper, rose accent, champagne gold flourishes, sage for "done". Dark mode is dusk plum. */
+   Garden Party: sage paper, blush and champagne accents, italic serif display. Dark mode is evening garden. */
 :root{
-  --bg:#f7eff0;--panel:#fdf8f7;--raised:#ffffff;--ink:#3e3238;--muted:#7a6870;--faint:#a8969e;
-  --line:#ecdde1;--line-strong:#d7c0c7;--wall:#cfaeb0;
-  --accent:#a75a73;--accent-ink:#ffffff;--accent-soft:#f6e2e8;--gold:#bf9b5f;
-  --floor:#f1e8ec;--room:#fffcfa;--dance:#f5ebdf;--tablebg:#ffffff;--empty:#f5edef;
-  --dotS:52%;--dotL:85%;--edgeL:58%;
-  --danger:#ad4747;--ok:#5a876a;--warn:#ad7535;
-  --scrim:rgb(62 50 56/.35);
-  --shadow:0 1px 2px rgb(110 70 85/.08),0 10px 28px rgb(110 70 85/.12);
+  --bg:#f2f5ee;--panel:#fbfcf8;--raised:#ffffff;--ink:#2f3a33;--muted:#66756b;--faint:#9aa79e;
+  --line:#dde6d9;--line-strong:#c7d4c3;--wall:#a9bca6;
+  --accent:#5d7c60;--accent-ink:#ffffff;--accent-soft:#e3ece0;--gold:#cf9c94;
+  --floor:#eef2ea;--room:#ffffff;--dance:#f6f9f3;--tablebg:#ffffff;--empty:#e9efe6;
+  --dotS:42%;--dotL:85%;--edgeL:60%;
+  --danger:#a8463f;--ok:#4f7d5c;--warn:#a5722f;
+  --scrim:rgb(47 58 51/.35);
+  --shadow:0 1px 2px rgb(70 95 72/.08),0 10px 30px rgb(70 95 72/.10);
   --font-display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
-  --font-script:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
-  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-script:"Cormorant Garamond","Cormorant",Georgia,serif;
+  --font-body:"Jost","Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#211a20;--panel:#2a2128;--raised:#332931;--ink:#f4e9ed;--muted:#bba8b1;--faint:#8b7881;
-  --line:#43363f;--line-strong:#5e4c57;--wall:#8f727b;
-  --accent:#e7a9bd;--accent-ink:#2a1a21;--accent-soft:#4b303b;--gold:#d9bc86;
-  --floor:#1d171c;--room:#2a2127;--dance:#33292b;--tablebg:#382d35;--empty:#3a2f37;
-  --dotS:34%;--dotL:34%;--edgeL:66%;
-  --danger:#e88a82;--ok:#94c6a4;--warn:#e3ad6c;
+  --bg:#181e1a;--panel:#1f2621;--raised:#27302a;--ink:#e8efe9;--muted:#a7b5ab;--faint:#77857b;
+  --line:#323c35;--line-strong:#4a574e;--wall:#6f8270;
+  --accent:#a9c7a6;--accent-ink:#16201a;--accent-soft:#2c3a2f;--gold:#e0b3aa;
+  --floor:#151a16;--room:#1f2621;--dance:#243027;--tablebg:#2a332d;--empty:#2d3730;
+  --dotS:34%;--dotL:38%;--edgeL:70%;
+  --danger:#e8928a;--ok:#9fcca8;--warn:#e2b06f;
   --scrim:rgb(0 0 0/.5);
-  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 28px rgb(0 0 0/.35);color-scheme:dark}}
+  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 30px rgb(0 0 0/.35);color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#211a20;--panel:#2a2128;--raised:#332931;--ink:#f4e9ed;--muted:#bba8b1;--faint:#8b7881;
-  --line:#43363f;--line-strong:#5e4c57;--wall:#8f727b;
-  --accent:#e7a9bd;--accent-ink:#2a1a21;--accent-soft:#4b303b;--gold:#d9bc86;
-  --floor:#1d171c;--room:#2a2127;--dance:#33292b;--tablebg:#382d35;--empty:#3a2f37;
-  --dotS:34%;--dotL:34%;--edgeL:66%;
-  --danger:#e88a82;--ok:#94c6a4;--warn:#e3ad6c;
+  --bg:#181e1a;--panel:#1f2621;--raised:#27302a;--ink:#e8efe9;--muted:#a7b5ab;--faint:#77857b;
+  --line:#323c35;--line-strong:#4a574e;--wall:#6f8270;
+  --accent:#a9c7a6;--accent-ink:#16201a;--accent-soft:#2c3a2f;--gold:#e0b3aa;
+  --floor:#151a16;--room:#1f2621;--dance:#243027;--tablebg:#2a332d;--empty:#2d3730;
+  --dotS:34%;--dotL:38%;--edgeL:70%;
+  --danger:#e8928a;--ok:#9fcca8;--warn:#e2b06f;
   --scrim:rgb(0 0 0/.5);
-  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 28px rgb(0 0 0/.35);color-scheme:dark}
+  --shadow:0 1px 2px rgb(0 0 0/.4),0 10px 30px rgb(0 0 0/.35);color-scheme:dark}
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.35}
 #app{height:100%;display:flex;flex-direction:column}
@@ -50,13 +50,14 @@ input,select,textarea{background:var(--raised);border:1px solid var(--line);bord
 
 /* header */
 header.top{position:relative;display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
-header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold) 85%,transparent);opacity:.8;pointer-events:none}
-.brand h1{font-family:var(--font-script);font-weight:400;font-size:34px;margin:0;line-height:1.05;color:var(--ink)}
-.brand h1 .amp{color:var(--gold);padding:0 .08em}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .sprig{flex:none;stroke:var(--accent)}.brand .sprig .lf{fill:var(--accent-soft)}.brand .sprig .bl{fill:hsl(8 60% 88%);stroke:var(--gold)}
+.brand h1{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:34px;margin:0;line-height:1;color:var(--ink)}
+.brand h1 .amp{color:var(--accent);padding:0 .06em}
 .brand .sub{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
 .meter{display:flex;align-items:center;gap:10px;flex:1;min-width:200px;max-width:420px}
 .meter .bar{flex:1;height:8px;border-radius:99px;background:var(--empty);overflow:hidden}
-.meter .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:99px;transition:width .25s}
+.meter .bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .25s}
 .meter .num{font-variant-numeric:tabular-nums;font-size:13px;white-space:nowrap}
 .meter .num b{font-size:16px}
 .actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
@@ -95,6 +96,7 @@ main.grid.cards-view .inspector{display:none}
 .brow.done .bn{color:var(--muted)}
 .brow .bar{grid-column:2/4;height:3px;background:var(--empty);border-radius:9px;overflow:hidden}
 .brow .bar i{display:block;height:100%;background:hsl(var(--h) 45% var(--edgeL))}
+#fq{border-radius:99px;padding-inline:14px}
 .filters{padding:10px 16px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--line)}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .fmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
@@ -113,7 +115,7 @@ main.grid.cards-view .inspector{display:none}
 .wide{width:100%}
 
 /* chip */
-.chip{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 8px;border:1px solid var(--line);background:var(--raised);border-radius:10px;cursor:grab;flex:1;min-width:0;user-select:none}
+.chip{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 8px;border:1px solid var(--line);background:var(--raised);border-radius:12px;cursor:grab;flex:1;min-width:0;user-select:none}
 .chip:hover{border-color:var(--line-strong)}
 .chip.picked{outline:2px solid var(--accent);outline-offset:1px}
 .chip.ghosted{opacity:.4}
@@ -145,11 +147,11 @@ button.on-toggle{background:var(--accent);color:var(--accent-ink);border-color:v
 .planwrap{flex:1;overflow:auto;padding:16px;background:var(--floor);min-height:0}
 .sizer{position:relative;margin:0 auto}
 .plan{position:absolute;left:0;top:0;width:1430px;height:1060px;transform-origin:0 0}
-.room{position:absolute;left:40px;top:40px;width:1355px;height:875px;background:var(--room);border:6px double var(--wall);box-sizing:border-box;border-radius:2px}
+.room{position:absolute;left:40px;top:40px;width:1355px;height:875px;background:var(--room);border:4px solid var(--wall);border-radius:16px;box-shadow:var(--shadow);box-sizing:border-box;border-radius:2px}
 .door{position:absolute;background:var(--floor)}
 .lbl{position:absolute;font-size:15px;color:var(--muted);text-align:center;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-.dance{position:absolute;left:591px;top:142px;width:314px;height:314px;border:1.5px solid var(--line-strong);background:repeating-conic-gradient(var(--dance) 0 25%,var(--room) 0 50%) 0 0/39.25px 39.25px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted)}
-.dance b{font-family:var(--font-script);font-weight:400;font-size:40px;color:var(--ink);opacity:.8}
+.dance{position:absolute;left:591px;top:142px;width:314px;height:314px;border:1.5px dashed var(--line-strong);border-radius:16px;background:var(--dance);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted)}
+.dance b{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:38px;color:var(--accent)}
 .dance span{font-size:14px;letter-spacing:.04em}
 .fixture{position:absolute;border:1.5px solid var(--line-strong);background:var(--raised);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--muted);border-radius:3px}
 .hint-cap{position:absolute;font-size:13px;color:var(--faint);text-align:center}
@@ -271,7 +273,7 @@ const qText=()=>ui.f.q.trim().toLowerCase();
 const matchQ=(g,q=qText())=>!!q&&`${name(g)} ${g.bucket} ${g.assign||''} ${g.notes||''}`.toLowerCase().includes(q);
 const assigns=()=>[...new Set(S.guests.map(g=>g.assign).filter(Boolean))].sort(cmp);
 const countAt=t=>S.guests.filter(g=>g.table===t.id).length;
-const SIDE_H={Avery:208,Morgan:342,Both:42},ASSIGN_H={Couple:168,"Avery's parents":268,"Morgan's parents":22};
+const SIDE_H={Avery:110,Morgan:8,Both:44},ASSIGN_H={Couple:168,"Avery's parents":268,"Morgan's parents":22};
 const hashH=s=>{let h=7;for(const c of String(s))h=(h*31+c.charCodeAt(0))%360;return h};
 const bucketH=b=>{const i=BUCKETS.indexOf(b);return Math.round(i*360/Math.max(1,BUCKETS.length)+200)%360};
 const rowH=b=>ui.colorBy==='bucket'?bucketH(b):SIDE_H[sideOf(b)];
@@ -329,7 +331,7 @@ const STATIC_PLAN=`<div class="room"></div>
 <div class="scale"><i></i>10 ft</div>`;
 function shell(){
   $('#app').innerHTML=`<header class="top">
-  <div class="brand"><h1>Avery <span class="amp">&amp;</span> Morgan</h1><div class="sub">Seating chart · Willow Hall · Demo wedding</div></div>
+  <div class="brand"><svg class="sprig" width="34" height="34" viewBox="0 0 40 40" fill="none" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M8 34C16 26 22 18 32 6"/><path class="lf" d="M14 27c-4-1-7-4-7-8 4 0 7 3 7 8z"/><path class="lf" d="M19 21c-1-4 0-8 4-10 1 4 0 8-4 10z"/><path class="bl" d="M24 15c3-3 7-3 9-1-3 3-6 3-9 1z"/><path class="lf" d="M18 24c4-1 8 0 10 3-4 1-8 0-10-3z"/></svg><div><h1>Avery <span class="amp">&amp;</span> Morgan</h1><div class="sub">Seating chart · Willow Hall · Demo wedding</div></div></div>
   <div class="meter" id="meter"></div>
   <div class="actions">
     <span class="status" id="status"></span>
@@ -502,7 +504,7 @@ function openGuest(gid){
 /* ---------- save / export / import ---------- */
 const capCache={};
 function getCap(n){if(!HOSTED)return Promise.resolve(null);return capCache[n]??=window.claude.use(n).catch(()=>null)}
-const HEAD_EXTRA='<title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Figtree:wght@400;500;600;700&family=Pinyon+Script&display=swap">';
+const HEAD_EXTRA='<title>Avery &amp; Morgan Seating</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500;600&display=swap">';
 const RESET=':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,-apple-system,sans-serif;background:#fafaf9}img{max-width:100%}[hidden]{display:none!important}';
 function buildDocument(state){const hs=document.head.querySelector('style:not([id])');const reset=hs?hs.textContent:RESET;
   const json=JSON.stringify(state).replace(/</g,'\\u003c');
